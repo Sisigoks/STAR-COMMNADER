@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ce1ywetk3dspx"]
+
+[ext_resource type="PackedScene" uid="uid://ck6m4wnwjef6l" path="res://str_comm.tscn" id="1_t7cvh"]
+[ext_resource type="PackedScene" uid="uid://br8winrom5fbh" path="res://lab.tscn" id="2_a3yuk"]
+
+[sub_resource type="Environment" id="Environment_ogptx"]
+background_mode = 1
+background_color = Color(0.881937, 0.881937, 0.881937, 1)
+
+[node name="Level2" type="Node3D"]
+
+[node name="str_comm" parent="." instance=ExtResource("1_t7cvh")]
+transform = Transform3D(-1, -1.52855e-14, -8.74228e-08, 0, 1, -1.74846e-07, 8.74228e-08, -1.74846e-07, -1, 1.88223, 0.328646, -0.553379)
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_a3yuk")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -5.34015, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ogptx")

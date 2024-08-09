@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=3 uid="uid://dtvoav67yrb7i"]
+
+[ext_resource type="Texture2D" uid="uid://csdqaqoch3djw" path="res://assets/panorama_image.png" id="1_tddfq"]
+[ext_resource type="PackedScene" uid="uid://dkflcn4m3curs" path="res://satan.tscn" id="1_u7lfc"]
+[ext_resource type="Texture2D" uid="uid://btjakfug7n66w" path="res://assets/lava.jpg" id="2_s058b"]
+[ext_resource type="PackedScene" uid="uid://ck6m4wnwjef6l" path="res://str_comm.tscn" id="3_vjxvq"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y3u77"]
+panorama = ExtResource("1_tddfq")
+
+[sub_resource type="Sky" id="Sky_ex8d5"]
+sky_material = SubResource("PanoramaSkyMaterial_y3u77")
+
+[sub_resource type="Environment" id="Environment_sirdh"]
+background_mode = 2
+sky = SubResource("Sky_ex8d5")
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_x6xe5"]
+vertices = PackedVector3Array(-14.5, 0.75, -14.5, -14.5, 0.75, 14.5, 14.5, 0.75, 14.5, 14.5, 0.75, -14.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1fnxt"]
+albedo_texture = ExtResource("2_s058b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45cqw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ttd4"]
+material = SubResource("StandardMaterial3D_45cqw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ou0f"]
+size = Vector3(29.9045, 0.898926, 30.2303)
+
+[node name="Level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sirdh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12504, 0)
+light_energy = 0.5
+light_indirect_energy = 0.0
+
+[node name="satan" parent="." instance=ExtResource("1_u7lfc")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -6.017)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.290055, 0)
+navigation_mesh = SubResource("NavigationMesh_x6xe5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(30, 0, 0, 0, 0.5, 0, 0, 0, 30, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_1fnxt")
+mesh = SubResource("BoxMesh_8ttd4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0814209, 0.0505371, -0.081604)
+shape = SubResource("BoxShape3D_4ou0f")
+
+[node name="str_comm" parent="." instance=ExtResource("3_vjxvq")]
+transform = Transform3D(-1, -1.52855e-14, -8.74228e-08, 0, 1, -1.74846e-07, 8.74228e-08, -1.74846e-07, -1, 0, 0, 7.35779)

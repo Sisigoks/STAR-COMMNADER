@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://djtt5oj6uaco2"]
+
+[ext_resource type="Texture2D" uid="uid://7s8k4s2pq760" path="res://assets/galax.jpg" id="1_apbhw"]
+[ext_resource type="Script" path="res://start.gd" id="1_s7jjj"]
+[ext_resource type="PackedScene" uid="uid://cc73l0reo8hda" path="res://ship.tscn" id="2_agy7t"]
+[ext_resource type="Texture2D" uid="uid://5swthbuhc53k" path="res://assets/Screenshot_2024-08-09_193236-removebg-preview.png" id="3_pif3b"]
+[ext_resource type="Script" path="res://VBoxContainer.gd" id="5_v8qu4"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_du4ic"]
+panorama = ExtResource("1_apbhw")
+
+[sub_resource type="Sky" id="Sky_cwsx5"]
+sky_material = SubResource("PanoramaSkyMaterial_du4ic")
+
+[sub_resource type="Environment" id="Environment_rxt7e"]
+background_mode = 2
+sky = SubResource("Sky_cwsx5")
+
+[node name="LevelFIR" type="Node3D"]
+script = ExtResource("1_s7jjj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.755002, -0.349049, 0.555101, 0.490679, -0.260824, -0.831387, 0.434979, 0.900075, -0.0256511, -10.7131, 13.8477, -7.40927)
+light_energy = 1.162
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rxt7e")
+
+[node name="ship" parent="." instance=ExtResource("2_agy7t")]
+transform = Transform3D(0.0086734, 0, -0.0234472, 0, 0.025, 0, 0.0234472, 0, 0.0086734, 0.691891, 0.803085, 0)
+
+[node name="CAM" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CAM"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.93286, -9.95355)
+fov = 94.8771
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -264.0
+offset_top = 1.0
+offset_right = 265.0
+offset_bottom = 122.0
+grow_horizontal = 2
+texture = ExtResource("3_pif3b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.5
+offset_right = 100.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("5_v8qu4")
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "LAB"
+
+[node name="Practise" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "FIGHT
+"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="VBoxContainer" method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Practise" to="VBoxContainer" method="_on_practise_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="VBoxContainer" method="_on_quit_pressed"]

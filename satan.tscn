@@ -1,0 +1,172 @@
+[gd_scene load_steps=27 format=3 uid="uid://dkflcn4m3curs"]
+
+[ext_resource type="PackedScene" uid="uid://cr2e2ronl88cc" path="res://assets/villan.glb" id="1_p3ibk"]
+[ext_resource type="Script" path="res://satan.gd" id="2_cbv70"]
+[ext_resource type="PackedScene" uid="uid://dhh6c7kdcbuxn" path="res://main_enemy.tscn" id="3_7fguh"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gby8k"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s24qb"]
+animation = &"forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g0pea"]
+animation = &"left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_icdtq"]
+animation = &"back"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e6r1n"]
+animation = &"right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_2iqu8"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_gby8k")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_s24qb")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_g0pea")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_icdtq")
+blend_point_3/pos = Vector2(0, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_e6r1n")
+blend_point_4/pos = Vector2(1, 0)
+sync = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iutvv"]
+animation = &"dying"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lei3g"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qlb14"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ghlmc"]
+animation = &"kick"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ysns"]
+animation = &"punch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w2a67"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ypysg"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nebrx"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0rcyw"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o8rpm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hbehf"]
+xfade_time = 0.4
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g16m8"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w2or6"]
+xfade_time = 0.5
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1qcop"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_atkvw"]
+states/IWR/node = SubResource("AnimationNodeBlendSpace2D_2iqu8")
+states/IWR/position = Vector2(365, 220)
+states/Start/position = Vector2(205, 220)
+states/dying/node = SubResource("AnimationNodeAnimation_iutvv")
+states/dying/position = Vector2(573, 220)
+states/fall/node = SubResource("AnimationNodeAnimation_lei3g")
+states/fall/position = Vector2(413, 328)
+states/jump/node = SubResource("AnimationNodeAnimation_qlb14")
+states/jump/position = Vector2(305, 328)
+states/kick/node = SubResource("AnimationNodeAnimation_ghlmc")
+states/kick/position = Vector2(300, 128)
+states/punch/node = SubResource("AnimationNodeAnimation_0ysns")
+states/punch/position = Vector2(436, 128)
+transitions = ["Start", "IWR", SubResource("AnimationNodeStateMachineTransition_w2a67"), "IWR", "jump", SubResource("AnimationNodeStateMachineTransition_ypysg"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_nebrx"), "fall", "IWR", SubResource("AnimationNodeStateMachineTransition_0rcyw"), "IWR", "kick", SubResource("AnimationNodeStateMachineTransition_o8rpm"), "kick", "IWR", SubResource("AnimationNodeStateMachineTransition_hbehf"), "IWR", "punch", SubResource("AnimationNodeStateMachineTransition_g16m8"), "punch", "IWR", SubResource("AnimationNodeStateMachineTransition_w2or6"), "IWR", "dying", SubResource("AnimationNodeStateMachineTransition_1qcop")]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_461kc"]
+radius = 0.641537
+height = 2.29196
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cnxxr"]
+viewport_path = NodePath("SubViewport")
+
+[node name="satan" groups=["satan"] instance=ExtResource("1_p3ibk")]
+script = ExtResource("2_cbv70")
+
+[node name="idle" parent="." index="0"]
+transform = Transform3D(-1, 7.64274e-15, 8.74228e-08, 0, -1, 8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="idle" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+bones/0/position = Vector3(-0.00126932, 0.00117288, -0.844248)
+bones/0/rotation = Quaternion(-0.685429, -0.268696, 0.248185, 0.629598)
+bones/1/rotation = Quaternion(-0.0580105, 0.0418078, -0.00328552, 0.997435)
+bones/2/rotation = Quaternion(0.0931951, 0.0817171, 0.000625186, 0.992289)
+bones/3/rotation = Quaternion(0.0931958, 0.0817187, 0.000619915, 0.992288)
+bones/4/rotation = Quaternion(0.0909477, -0.0108397, 0.000299541, 0.995797)
+bones/5/rotation = Quaternion(-0.0446709, 0.175693, -0.00463556, 0.98342)
+bones/7/rotation = Quaternion(-0.532275, -0.461616, 0.596213, -0.384869)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/rotation = Quaternion(0.447552, -0.04979, -0.004181, 0.892861)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(0.0552476, 0.0662501, 0.415641, 0.905429)
+bones/11/rotation = Quaternion(0.617056, -0.390809, 0.545413, 0.411138)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(0.411956, -0.0581518, 0.201061, 0.88684)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(0.000195584, 0.00181464, -0.372672, 0.927962)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/rotation = Quaternion(7.45058e-08, 4.28408e-08, 4.19095e-08, 1)
+bones/15/rotation = Quaternion(0.081963, 0.274307, 0.951378, -0.113657)
+bones/15/scale = Vector3(1, 1, 1)
+bones/16/rotation = Quaternion(-0.399873, 0.119305, -0.0426655, 0.907771)
+bones/16/scale = Vector3(1, 1, 1)
+bones/17/rotation = Quaternion(0.472262, -0.232967, 0.172248, 0.832482)
+bones/18/rotation = Quaternion(0.287169, -0.228919, 0.0381177, 0.929342)
+bones/20/rotation = Quaternion(-0.123479, 0.0570198, 0.978027, 0.158003)
+bones/20/scale = Vector3(0.999999, 1, 1)
+bones/21/rotation = Quaternion(-0.383555, 0.0753135, -0.00642614, 0.92042)
+bones/22/rotation = Quaternion(0.572472, 0.284228, -0.0546092, 0.767143)
+bones/23/rotation = Quaternion(0.27042, 0.268317, -0.0710023, 0.921866)
+bones/23/scale = Vector3(1, 1, 1)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_atkvw")
+anim_player = NodePath("../AnimationPlayer")
+parameters/IWR/blend_position = Vector2(-0.000825763, 0.00440526)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.636988, 0.0202507)
+shape = SubResource("CapsuleShape3D_461kc")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="4"]
+
+[node name="FaceDirection" type="Node3D" parent="." index="5"]
+
+[node name="Area3D" type="Area3D" parent="." index="6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.636988, 0.0202507)
+shape = SubResource("CapsuleShape3D_461kc")
+
+[node name="SubViewport" type="SubViewport" parent="." index="7"]
+disable_3d = true
+transparent_bg = true
+
+[node name="Main_Enemy" parent="SubViewport" index="0" instance=ExtResource("3_7fguh")]
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79084, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_cnxxr")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
